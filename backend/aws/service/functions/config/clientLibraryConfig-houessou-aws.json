@@ -1,8 +1,8 @@
 {
   "type": "external_account",
-  "audience": "//iam.googleapis.com/projects/992177736782/locations/global/workloadIdentityPools/imager-houessou-com/providers/houessou-aws",
+  "audience": "//iam.googleapis.com/projects/1024643519701/locations/global/workloadIdentityPools/imager-houessou-com-federation/providers/houessou-aws",
   "subject_token_type": "urn:ietf:params:aws:token-type:aws4_request",
-  "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/imager-houessou-com-firestore@shaped-goal-322820.iam.gserviceaccount.com:generateAccessToken",
+  "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/imager-houessou-com-firestore@imager-houessou-com-328312.iam.gserviceaccount.com:generateAccessToken",
   "token_url": "https://sts.googleapis.com/v1/token",
   "credential_source": {
     "environment_id": "aws1",
