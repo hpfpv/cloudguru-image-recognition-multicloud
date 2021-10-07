@@ -21,7 +21,7 @@ jobs:
 # sam build 
       - name: sam build
         working-directory: ./backend/aws/service
-        run: sam build --use-container -t service.yaml
+        run: sam build -t service.yaml
 
 # Run Unit tests- Specify unit tests here 
      ## - name: Run tests
