@@ -49,7 +49,7 @@ Resources:
             Action:
               - 's3:GetObject*'
               - 's3:PutObject*'
-            Resource: !Join ['',["arn:aws:s3:::hpf-",!Ref AWS::StackName, "-files/*"] ] 
+            Resource: !Join ['',[!GetAtt 'ImageRFilesBucket.Arn', '/*'] ]
             Principal: '*'
 
   ServiceRole:
@@ -71,7 +71,7 @@ Resources:
             Statement:
             - Effect: Allow
               Action: 's3:GetObject*'
-              Resource: !Join ['',["arn:aws:s3:::hpf-",!Ref AWS::StackName, "-files"] ] 
+              Resource: !Join ['',[!GetAtt 'ImageRFilesBucket.Arn', '/*'] ]
 
   analyzeImage:
     Type: AWS::Serverless::Function
