@@ -72,6 +72,12 @@ Resources:
             - Effect: Allow
               Action: 's3:GetObject*'
               Resource: !Join ['',["arn:aws:s3:::hpf-", !Ref 'AWS::StackName', "-files/*"] ]
+            - Effect: Allow
+              Action:
+                - 'logs:CreateLogStream'
+                - 'logs:CreateLogGroup'
+                - 'logs:PutLogEvents'
+              Resource: '*'
 
   analyzeImage:
     Type: AWS::Serverless::Function
