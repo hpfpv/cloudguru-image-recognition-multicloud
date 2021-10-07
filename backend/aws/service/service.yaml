@@ -49,7 +49,7 @@ Resources:
             Action:
               - 's3:GetObject*'
               - 's3:PutObject*'
-            Resource: !Join ['',[!GetAtt 'ImageRFilesBucket.Arn', '/*'] ]
+            Resource: !Join ['',["arn:aws:s3:::hpf-", !Ref 'AWS::StackName', "-files/*"] ]
             Principal: '*'
 
   ServiceRole:
@@ -71,7 +71,7 @@ Resources:
             Statement:
             - Effect: Allow
               Action: 's3:GetObject*'
-              Resource: !Join ['',[!GetAtt 'ImageRFilesBucket.Arn', '/*'] ]
+              Resource: !Join ['',["arn:aws:s3:::hpf-", !Ref 'AWS::StackName', "-files/*"] ]
 
   analyzeImage:
     Type: AWS::Serverless::Function
@@ -87,7 +87,7 @@ Resources:
       CodeUri: ./functions
       Handler: analyzeImage.lambda_handler
       Events:
-        S3NewFileEvent:
+        S3Event:
           Type: S3
           Properties:
             Bucket: !Ref ImageRFilesBucket
@@ -108,7 +108,7 @@ Resources:
       CodeUri: ./functions
       Handler: getAnalysis.lambda_handler
       Events:
-        getAnalysisApi:
+        Api:
           Type: HttpApi
           Properties:
             ApiId: !Ref AnalysisApi
