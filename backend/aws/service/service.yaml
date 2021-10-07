@@ -24,7 +24,7 @@ Resources:
   ImageRFilesBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: 'hpf-imager-houessou-com-files' 
+      BucketName: !Sub '${AWS::StackName}-files' 
       CorsConfiguration:
         CorsRules:
           - AllowedHeaders:
