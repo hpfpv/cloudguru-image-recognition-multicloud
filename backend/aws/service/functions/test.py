@@ -34,3 +34,4 @@ plt.imshow(image)
 plt.axis("off")
 _ = plt.title(image_caption, size="x-large", y=-0.1)
 plt.show()
+
