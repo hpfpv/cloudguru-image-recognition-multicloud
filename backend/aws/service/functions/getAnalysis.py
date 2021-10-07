@@ -23,9 +23,9 @@ def getAnalysis(imageKey):
 
     response = document.get('analysis').to_dict()
 
-    logger.info(response)
+    logger.info(json.dumps(response.json()))
 
-    return response
+    return json.dumps(response.json())
 
 def lambda_handler(event, context):
     logger.info(event)
