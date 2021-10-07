@@ -24,7 +24,7 @@ Resources:
   ImageRFilesBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub '${AWS::StackName}-files' 
+      BucketName: !Sub 'hpf-${AWS::StackName}-files' 
       CorsConfiguration:
         CorsRules:
           - AllowedHeaders:
@@ -49,7 +49,7 @@ Resources:
             Action:
               - 's3:GetObject*'
               - 's3:PutObject*'
-            Resource: "arn:aws:s3:::hpf-imager-houessou-com-files/*"
+            Resource: !Join ['',["arn:aws:s3:::hpf-", !Ref 'AWS::StackName', "-files/*"] ]
             Principal: '*'
 
   ServiceRole:
