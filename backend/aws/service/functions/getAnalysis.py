@@ -23,10 +23,10 @@ def getAnalysis(imageKey):
 
     data = document.get().to_dict()
 
-    response = json.dumps(data['analysis'])
+    response = data['analysis']
     logger.info(response)
 
-    return json.dumps(response)
+    return response
 
 def lambda_handler(event, context):
     logger.info(event)
