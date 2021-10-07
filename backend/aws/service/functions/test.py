@@ -4,7 +4,6 @@ import json
 from PIL import Image
 from io import BytesIO
 
-
 '''
 Authenticate
 Authenticates your credentials and creates a client.
