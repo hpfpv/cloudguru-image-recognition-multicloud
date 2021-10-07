@@ -1,0 +1,6 @@
+boto3
+nose2
+pillow
+requests
+matplotlib
+google-cloud-firestore

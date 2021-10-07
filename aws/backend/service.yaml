@@ -1,0 +1,134 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: "Stack for imager-houessou-com service"
+
+Globals:
+  Function:
+    Runtime: python3.8
+
+Resources:
+  AnalysisApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: dev
+      CorsConfiguration:
+        AllowMethods:
+          - GET
+          - POST
+          - DELETE
+          - HEAD
+          - PUT
+        AllowOrigins: 'https://imager.houessou.com'
+        AllowHeaders: '*'
+
+  ImageRFilesBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: 'hpf-imager-houessou-com-files' 
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - HEAD
+            AllowedOrigins:
+              - 'https://imager.houessou.com'
+
+  ImageRFilesBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref ImageRFilesBucket
+      PolicyDocument:  
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - 's3:GetObject*'
+              - 's3:PutObject*'
+            Resource: !Join ['',["arn:aws:s3:::hpf-",!Ref AWS::StackName, "-files/*"] ] 
+            Principal: '*'
+
+  ServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join [ '-', [ !Ref 'AWS::StackName', 'ServiceRole'] ]
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: !Join [ '-', [ !Ref 'AWS::StackName', 'ServicePolicy'] ]
+          PolicyDocument:
+            Statement:
+            - Effect: Allow
+              Action: 's3:GetObject*'
+              Resource: !Join ['',["arn:aws:s3:::hpf-",!Ref AWS::StackName, "-files"] ] 
+
+  analyzeImage:
+    Type: AWS::Serverless::Function
+    Properties:
+      Environment: 
+        Variables:
+          COMPUTER_VISION_SUB_KEY: "13591f30175a4b79b4c8166496e55f64"
+          COMPUTER_VISION_ENDPOINT: !Join ['',[https://", !Ref AWS::StackName, "-computer-vision.cognitiveservices.azure.com/"] ] 
+          S3_BUCKET: !Join ['',["hpf-",!Ref AWS::StackName, "-files"] ] 
+          FIRESTORE_COLLECTION: "imager-houessou-com-analysis"
+          GOOGLE_CLOUD_PROJECT: "imager-houessou-com-328312"
+          GOOGLE_APPLICATION_CREDENTIALS: "`pwd`/aws/backend/config/clientLibraryConfig-houessou-aws.json"
+      CodeUri: ./functions
+      Handler: analyzeImage.lambda_handler
+      Events:
+        S3NewFileEvent:
+          Type: S3
+          Properties:
+            Bucket: !Ref ImageRFilesBucket
+            Events: s3:ObjectCreated:Put
+      Role: !GetAtt 'ServiceRole.Arn'
+
+  getAnalysis:
+    Type: AWS::Serverless::Function
+    Properties:
+      Environment: 
+        Variables:
+          COMPUTER_VISION_SUB_KEY: "13591f30175a4b79b4c8166496e55f64"
+          COMPUTER_VISION_ENDPOINT: "https://imager-houessou-com-computer-vision.cognitiveservices.azure.com/"
+          S3_BUCKET: !Join ['',["hpf-",!Ref AWS::StackName, "-files"] ] 
+          FIRESTORE_COLLECTION: "imager-houessou-com-analysis"
+          GOOGLE_CLOUD_PROJECT: "imager-houessou-com-328312"
+          GOOGLE_APPLICATION_CREDENTIALS: "`pwd`/aws/backend/config/clientLibraryConfig-houessou-aws.json"
+      CodeUri: ./functions
+      Handler: getAnalysis.lambda_handler
+      Events:
+        getAnalysisApi:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref AnalysisApi
+            Path: /{imageKey}/analysis
+            Method: GET
+      Role: !GetAtt 'ServiceRole.Arn'
+                                      
+
+Outputs:
+  ImageRFilesBucket:
+    Value: !Ref ImageRFilesBucket
+    Export:
+      Name: !Sub "${AWS::StackName}-ImageRFilesBucket"
+  AnalysisApi:
+    Value: !Join [ '', ['https://', !Ref AnalysisApi, '.execute-api.us-east-1.amazonaws.com/dev'] ]
+    Export:
+      Name: !Sub "${AWS::StackName}-AnalysisApiUrl"
+  ServiceRoleArn:
+    Value: !GetAtt 'ServiceRole.Arn'
+    Export:
+      Name: !Sub "${AWS::StackName}-ServiceRoleArn"
+  StackName: 
+    Value: !Sub "${AWS::StackName}"
