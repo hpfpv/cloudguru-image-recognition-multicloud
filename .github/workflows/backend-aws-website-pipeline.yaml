@@ -21,7 +21,7 @@ jobs:
 # sam build 
       - name: sam build
         working-directory: ./backend/aws/website
-        run: sam build --use-container -t website.yaml
+        run: sam build -t website.yaml
 
 
 # sam deploy
