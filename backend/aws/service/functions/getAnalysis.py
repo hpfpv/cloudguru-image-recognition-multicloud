@@ -21,11 +21,11 @@ def getAnalysis(imageKey):
 
     document = collection.document(documentId)
 
-    response = document.get().to_dict()
+    response = document.get('analysis').to_dict()
 
-    logger.info(json.dumps(response))
+    logger.info(response)
 
-    return json.dumps(response)
+    return response
 
 def lambda_handler(event, context):
     logger.info(event)
