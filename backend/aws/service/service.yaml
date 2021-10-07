@@ -75,6 +75,7 @@ Resources:
 
   analyzeImage:
     Type: AWS::Serverless::Function
+    DependsOn: ImageRFilesBucket
     Properties:
       Environment: 
         Variables:
