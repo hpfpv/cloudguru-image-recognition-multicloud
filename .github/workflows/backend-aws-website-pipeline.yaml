@@ -1,4 +1,4 @@
-name: Deploy imager-houessou-com website
+name: deploy imager-houessou-com backend website resources
 
 on:
   push:
@@ -23,16 +23,8 @@ jobs:
         working-directory: ./backend/aws/website
         run: sam build --use-container 
 
-# Run Unit tests- Specify unit tests here 
-     ## - name: Run tests
-      ##  run: |
-          ## pushd './backend/aws/website'
-          ## pip install awscli
-          ## python -m pip install --upgrade pip
-          ## pip install -r requirements.txt      
-          ## python -m nose2 test_getTodos.lambda_handler test_addTodo.lambda_handler test_completeTodo.lambda_handler
 
 # sam deploy
       - name: sam deploy
         working-directory: ./backend/aws/website
-        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ secrets.WEBSITE_STACK_NAME}} --s3-bucket ${{ secrets.SAM_S3_BUCKET }} --capabilities CAPABILITY_NAMED_IAM --region ${{ secrets.AWS_REGION }}
+        run: sam deploy -t website.yaml --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ secrets.WEBSITE_STACK_NAME}} --s3-bucket ${{ secrets.SAM_S3_BUCKET }} --capabilities CAPABILITY_NAMED_IAM --region ${{ secrets.AWS_REGION }}
