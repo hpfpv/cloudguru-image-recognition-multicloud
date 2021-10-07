@@ -83,7 +83,7 @@ Resources:
           S3_BUCKET: !Join ['',["hpf-",!Ref AWS::StackName, "-files"] ] 
           FIRESTORE_COLLECTION: "imager-houessou-com-analysis"
           GOOGLE_CLOUD_PROJECT: "imager-houessou-com-328312"
-          GOOGLE_APPLICATION_CREDENTIALS: "`pwd` config/clientLibraryConfig-houessou-aws.json"
+          GOOGLE_APPLICATION_CREDENTIALS: "config/clientLibraryConfig-houessou-aws.json"
       CodeUri: ./functions
       Handler: analyzeImage.lambda_handler
       Events:
