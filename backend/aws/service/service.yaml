@@ -49,7 +49,7 @@ Resources:
             Action:
               - 's3:GetObject*'
               - 's3:PutObject*'
-            Resource: !Join ['',["arn:aws:s3:::hpf-", !Ref 'AWS::StackName', "-files/*"] ]
+            Resource: "arn:aws:s3:::hpf-imager-houessou-com-files/*"
             Principal: '*'
 
   ServiceRole:
