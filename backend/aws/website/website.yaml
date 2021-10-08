@@ -18,6 +18,7 @@ Resources:
       CloudFrontOriginAccessIdentityConfig:
         Comment: !Join ['', ['access-identity-', !Ref ImageRWebBucket, '.s3.amazonaws.com'] ]
 
+        
   ImageRWebBucketPolicy:
     Type: AWS::S3::BucketPolicy
     DeletionPolicy: Retain
