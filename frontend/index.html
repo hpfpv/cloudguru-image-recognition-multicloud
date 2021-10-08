@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home - imageRHouessou</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="favicon.png" >
+</head>
+<body id="body" style="visibility:visible" ng-app="imagerApp">
+
+    <!-- logo -->
+    <div class="container-fluid" style="text-align: center">
+        <a class="navbar-brand" href="#">
+            <img src="img/logo.png" id="logo" align="center"/>
+            <b id="brand-title"></b>
+        </a>
+    </div>
+    <p>
+      <br>
+      <br>
+    </p>
+    
+    <!-- Add File Form -->
+    <div class="col-md-auto" id="addFilesForm">
+      <div class="input-group input-group upload-form">
+          <div class="input-group-prepend">
+              <span type="button" class="btn btn-custom" id="uploadButton" onclick="uploadImage()">Send for Analysis</span>
+          </div>
+          <div class="custom-file">
+              <input type="file" accept="image/*" class="form-control-file input-group" id="fileinput" aria-describedby="fileinput" onChange="addFileName();">
+              <label class="custom-file-label" for="fileinput" id="fileName">Choose File</label>
+          </div>
+      </div>
+    </div> 
+    <!-- End Add File Form -->
+    
+    <!-- Timer Form -->
+    <div class="col-md-auto d-none" id="timerForm"></div>
+      <p>Image is being proccessed. Please wait. </p>
+      <div id="timerApp"></div>
+      <br>
+      <button id="getAnalysisButton" align="center" type="button" class="btn btn-success d-none" onclick="showAnalysisForm()">Show Report</button>
+    </div> 
+    <!-- End Timer Form -->
+
+    <br>
+
+    <!-- Analysis Form -->
+    <div class="col-md-auto d-none" id="analysisForm" ng-controller="analysisController"></div>
+      <img src="{{imageData.imageUrl}}" id="imageFrame" align="center"/>
+      <br>
+      <textarea class="form-control " id="imageAnalysis" >{{imageData.analysis}}</textarea>
+    </div>
+    <!-- End Analysis Form -->
+
+    <!-- Importing scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.135.0.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+    <script src="js/aws-cognito-sdk.min.js"></script>
+    <script src="js/amazon-cognito-identity.min.js"></script>
+    <script src="js/script.js"></script>
+    <!--New scripts for extra small button-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <p>
+        <br>
+        <br>
+        &nbsp;&nbsp;Image recognition Web application created for training purposes. <a href="https://blogs.houessou.com/sample-todo-app-aws">More details here.</a>
+    </p>
+</body>
+<script>
+  var analysisScope;
+
+  app.controller('analysisController', function($scope) {
+        analysisScope = $scope;
+    });
+
+</script>
+</html>
