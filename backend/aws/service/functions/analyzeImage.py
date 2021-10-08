@@ -71,6 +71,7 @@ def postImageDataToGCPFirestore(imageKey, analysis):
 
 
 def lambda_handler(event, context):
+    logger.info("START DEBUG")
     logger.info(event)
     # Grab image Url from s3
     imageKey = getImageKey(event)
@@ -81,10 +82,12 @@ def lambda_handler(event, context):
     # store imageUrl and analysis in GCP Firestore
     postImageDataToGCPFirestore(imageKey, analysis)
 
-    logger.info(analysis)
+    logger.info(f"{imageKey} analysis {analysis} completed successfully")
 
     responseBody = {}
     responseBody["status"] = "success"
+
+    logger.info("END DEBUG")
     return {
         'statusCode': 200,
         'headers': {
