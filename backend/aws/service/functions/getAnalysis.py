@@ -31,7 +31,7 @@ def getAnalysis(imageKey):
 
     logger.info(response)
 
-    return data['analysis']
+    return json.dumps(response)
 
 def lambda_handler(event, context):
     logger.info(event)
