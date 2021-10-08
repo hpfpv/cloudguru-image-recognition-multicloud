@@ -18,7 +18,7 @@ Resources:
       CloudFrontOriginAccessIdentityConfig:
         Comment: !Join ['', ['access-identity-', !Ref ImageRWebBucket, '.s3.amazonaws.com'] ]
 
-        
+
   ImageRWebBucketPolicy:
     Type: AWS::S3::BucketPolicy
     DeletionPolicy: Retain
@@ -60,7 +60,7 @@ Resources:
           ViewerProtocolPolicy: redirect-to-https
         Origins:
           - S3OriginConfig:
-              OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${imageRWebBucketOAI}'
+              OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${ImageRWebBucketOAI}'
             DomainName: !Join ['', [!Ref 'ImageRWebBucket', '.s3.us-east-1.amazonaws.com'] ]
             Id: !Join ['', [!Ref 'ImageRWebBucket', '.s3.us-east-1.amazonaws.com'] ]
         ViewerCertificate:
