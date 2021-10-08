@@ -5,6 +5,15 @@ Description: "Stack for imager-houessou-com service"
 Globals:
   Function:
     Runtime: python3.8
+    Timeout: 60
+    Environment: 
+        Variables:
+          COMPUTER_VISION_SUB_KEY: "13591f30175a4b79b4c8166496e55f64"
+          COMPUTER_VISION_ENDPOINT: !Join ['',["https://", !Ref AWS::StackName, "-computer-vision.cognitiveservices.azure.com/"] ] 
+          S3_BUCKET: !Join ['',["hpf-",!Ref AWS::StackName, "-files"] ] 
+          FIRESTORE_COLLECTION: "imager-houessou-com-analysis"
+          GOOGLE_CLOUD_PROJECT: "imager-houessou-com-328312"
+          GOOGLE_APPLICATION_CREDENTIALS: "config/clientLibraryConfig-houessou-aws.json"
 
 Resources:
   AnalysisApi:
@@ -82,14 +91,6 @@ Resources:
   analyzeImage:
     Type: AWS::Serverless::Function
     Properties:
-      Environment: 
-        Variables:
-          COMPUTER_VISION_SUB_KEY: "13591f30175a4b79b4c8166496e55f64"
-          COMPUTER_VISION_ENDPOINT: !Join ['',["https://", !Ref AWS::StackName, "-computer-vision.cognitiveservices.azure.com/"] ] 
-          S3_BUCKET: !Join ['',["hpf-",!Ref AWS::StackName, "-files"] ] 
-          FIRESTORE_COLLECTION: "imager-houessou-com-analysis"
-          GOOGLE_CLOUD_PROJECT: "imager-houessou-com-328312"
-          GOOGLE_APPLICATION_CREDENTIALS: "config/clientLibraryConfig-houessou-aws.json"
       CodeUri: ./functions
       Handler: analyzeImage.lambda_handler
       Events:
@@ -103,14 +104,6 @@ Resources:
   getAnalysis:
     Type: AWS::Serverless::Function
     Properties:
-      Environment: 
-        Variables:
-          COMPUTER_VISION_SUB_KEY: "13591f30175a4b79b4c8166496e55f64"
-          COMPUTER_VISION_ENDPOINT: !Join ['',["https://", !Ref AWS::StackName, "-computer-vision.cognitiveservices.azure.com/"] ] 
-          S3_BUCKET: !Join ['',["hpf-",!Ref AWS::StackName, "-files"] ] 
-          FIRESTORE_COLLECTION: !Join ['',[!Ref AWS::StackName, "-analysis"] ] 
-          GOOGLE_CLOUD_PROJECT: !Join ['',[!Ref AWS::StackName, "-328312"] ] 
-          GOOGLE_APPLICATION_CREDENTIALS: "config/clientLibraryConfig-houessou-aws.json"
       CodeUri: ./functions
       Handler: getAnalysis.lambda_handler
       Events:
