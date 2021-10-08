@@ -57,8 +57,10 @@ document.getElementById("timerApp").innerHTML = `
 `;
 
 function onTimesUp() {
-  clearInterval(timerInterval);
-  showGetAnalysisButton();
+    clearInterval(timerInterval);
+    var fileKey = localStorage.getItem('fileKey');
+    getAnalysis(fileKey, applyAnalysisScope);
+    showGetAnalysisButton();
 }
 
 function startTimer() {
@@ -138,9 +140,8 @@ function showTimerForm(){
 } 
 
 function showAnalysisForm(){
-    var fileKey = localStorage.getItem('fileKey');
-    getAnalysis(fileKey, applyAnalysisScope);
     $("#analysisForm").removeClass("d-none");
+    $("#timerForm").addClass("d-none");
 } 
 
 function hideAddFilesForm(){
