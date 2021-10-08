@@ -1,6 +1,7 @@
 var imagerApiEndpoint = 'https://ej7ryesphb.execute-api.us-east-1.amazonaws.com/dev/';
 var bucketName = 'hpf-imager-houessou-com-files';
 var awsRegion = 'us-east-1';
+var identityPoolId = 'us-east-1:1d4efcf7-f995-4331-bd94-c3ed6111f246';
 
 var gridScope;
 var descriptionScope;
@@ -193,6 +194,12 @@ function uploadImage(){
             alert("File size exceeds the limit of 10MB.");
         }
         else{
+            AWS.config.update({
+                region: awsRegion,
+                credentials: new AWS.CognitoIdentityCredentials({
+                    IdentityPoolId: identityPoolId
+                })
+            });
             var s3 = new AWS.S3({
                 apiVersion: '2006-03-01',
                 params: {Bucket: bucketName}
