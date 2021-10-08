@@ -151,6 +151,7 @@ function hideAddFilesForm(){
 
 function showGetAnalysisButton(){
     $("#getAnalysisButton").removeClass("d-none");
+    $("#fileinput").replaceWith($("#fileinput").val('').clone(true));
 }
 
 function resetForms(){
