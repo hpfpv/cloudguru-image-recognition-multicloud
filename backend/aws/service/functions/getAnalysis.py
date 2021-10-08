@@ -23,7 +23,7 @@ def getAnalysis(imageKey):
 
     data = document.get().to_dict()
     logger.info(data)
-    
+
     response = {}
 
     response['analysis'] = data['analysis']
@@ -31,7 +31,7 @@ def getAnalysis(imageKey):
 
     logger.info(response)
 
-    return response
+    return data['analysis']
 
 def lambda_handler(event, context):
     logger.info(event)
