@@ -24,35 +24,41 @@
     </p>
     
     <!-- Add File Form -->
-    <div class="col-md-auto" id="addFilesForm">
-      <div class="input-group input-group upload-form">
-          <div class="input-group-prepend">
-              <span type="button" class="btn btn-custom" id="uploadButton" onclick="uploadImage()">Send for Analysis</span>
-          </div>
-          <div class="custom-file">
-              <input type="file" accept="image/*" class="form-control-file input-group" id="fileinput" aria-describedby="fileinput" onChange="addFileName();">
-              <label class="custom-file-label" for="fileinput" id="fileName">Choose File</label>
-          </div>
-      </div>
-    </div> 
+    <div class="container">
+      <div class="col-md-auto" id="addFilesForm">
+        <div class="input-group input-group upload-form">
+            <div class="input-group-prepend">
+                <span type="button" class="btn btn-custom" id="uploadButton" onclick="uploadImage()">Send for Analysis</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" accept="image/*" class="form-control-file input-group" id="fileinput" aria-describedby="fileinput" onChange="addFileName();">
+                <label class="custom-file-label" for="fileinput" id="fileName">Choose File</label>
+            </div>
+        </div>
+      </div> 
+    </div>
     <!-- End Add File Form -->
     
     <!-- Timer Form -->
-    <div class="col-md-auto d-none" id="timerForm"></div>
-      <p>Image is being proccessed. Please wait. </p>
-      <div id="timerApp"></div>
-      <br>
-      <button id="getAnalysisButton" align="center" type="button" class="btn btn-success d-none" onclick="showAnalysisForm()">Show Report</button>
-    </div> 
+    <div class="container d-none" id="analysisForm">
+      <div class="col-md-auto d-none" id="timerForm">
+        <p>Image is being proccessed. Please wait. </p>
+        <div id="timerApp"></div>
+        <br>
+        <button id="getAnalysisButton" align="center" type="button" class="btn btn-success d-none" onclick="showAnalysisForm()">Show Report</button>
+      </div> 
+    </div>
     <!-- End Timer Form -->
 
     <br>
 
     <!-- Analysis Form -->
-    <div class="col-md-auto d-none" id="analysisForm" ng-controller="analysisController"></div>
-      <img src="{{imageData.imageUrl}}" id="imageFrame" align="center"/>
-      <br>
-      <textarea class="form-control " id="imageAnalysis" >{{imageData.analysis}}</textarea>
+    <div class="container d-none" id="analysisForm">
+      <div class="col-md-auto" ng-controller="analysisController">
+        <img src="{{imageData.imageUrl}}" id="imageFrame" align="center"/>
+        <br>
+        <textarea class="form-control " id="imageAnalysis" >{{imageData.analysis}}</textarea>
+      </div>
     </div>
     <!-- End Analysis Form -->
 
