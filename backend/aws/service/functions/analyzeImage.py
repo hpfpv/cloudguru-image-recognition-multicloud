@@ -55,19 +55,22 @@ def displayImageWithCaption(imageKey, analysis):
     plt.show()
 
 def postImageDataToGCPFirestore(imageKey, analysis):
-    imageUrl = imageUrl = f'https://{s3Bucket}.s3.amazonaws.com/{str(imageKey)}'
-    imageUrlJson = {
-        "imageUrl": imageUrl
-    }
-    data = {}
-    data["imageUrl"] = imageUrlJson
-    data["analysis"] = analysis
-    logger.info(data)
-    documentId = str(imageKey).split('.', 1)[0]
-    db = firestore.Client()
-    collection = db.collection(os.environ["FIRESTORE_COLLECTION"])
-    document = collection.document(documentId).set(data)
-    logger.info(document)
+    try:
+        imageUrl = imageUrl = f'https://{s3Bucket}.s3.amazonaws.com/{str(imageKey)}'
+        imageUrlJson = {
+            "imageUrl": imageUrl
+        }
+        data = {}
+        data["imageUrl"] = imageUrlJson
+        data["analysis"] = analysis
+        documentId = str(imageKey).split('.', 1)[0]
+        db = firestore.Client()
+        collection = db.collection(os.environ["FIRESTORE_COLLECTION"])
+        document = collection.document(documentId).set(data)
+        logger.info(document)
+        return document
+    except Exception as er:
+        logger.info(er)
 
 
 def lambda_handler(event, context):
@@ -80,9 +83,13 @@ def lambda_handler(event, context):
     analysis = getImageAnalysis(imageKey)
 
     # store imageUrl and analysis in GCP Firestore
-    postImageDataToGCPFirestore(imageKey, analysis)
+    firestoreStatus = postImageDataToGCPFirestore(imageKey, analysis)
+    response = {}
+    response['imageKey'] = imageKey
+    response['analysis'] = analysis
+    response['firestoreStatus'] = firestoreStatus
 
-    logger.info(f"{imageKey} analysis {analysis} completed successfully")
+    logger.info(response)
 
     responseBody = {}
     responseBody["status"] = "success"
