@@ -26,7 +26,7 @@ const COLOR_CODES = {
   }
 };
 
-const TIME_LIMIT = 20;
+const TIME_LIMIT = 10;
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
@@ -150,6 +150,13 @@ function hideAddFilesForm(){
 
 function showGetAnalysisButton(){
     $("#getAnalysisButton").removeClass("d-none");
+}
+
+function resetForms(){
+    $("#addFilesForm").removeClass("d-none");
+    $("#getAnalysisButton").addClass("d-none");
+    $("#analysisForm").addClass("d-none");
+    $("#timerForm").addClass("d-none");
 }
 
 function addFileName () {
