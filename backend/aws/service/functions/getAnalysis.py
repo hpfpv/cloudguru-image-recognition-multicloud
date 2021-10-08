@@ -22,8 +22,13 @@ def getAnalysis(imageKey):
     document = collection.document(documentId)
 
     data = document.get().to_dict()
+    logger.info(data)
+    
+    response = {}
 
-    response = data
+    response['analysis'] = data['analysis']
+    response['imageUrl'] = data['imageUrl']['imageUrl']
+
     logger.info(response)
 
     return response
