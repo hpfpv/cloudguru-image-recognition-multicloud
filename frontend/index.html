@@ -28,7 +28,7 @@
       <div class="col-md-auto" id="addFilesForm">
         <div class="input-group input-group upload-form">
             <div class="input-group-prepend">
-                <span type="button" class="btn btn-custom" id="uploadButton" onclick="uploadImage()">Send for Analysis</span>
+                <span type="button" class="btn btn-custom" id="uploadButton" onclick="uploadImage()">Analyze Image</span>
             </div>
             <div class="custom-file">
                 <input type="file" accept="image/*" class="form-control-file input-group" id="fileinput" aria-describedby="fileinput" onChange="addFileName();">
@@ -55,11 +55,17 @@
     <!-- Analysis Form -->
     <div class="container d-none" align="center" id="analysisForm">
       <div class="col-md-auto" ng-controller="analysisController">
-        <img src={{imageData.imageUrl}} id="imageFrame" align="center"/>
+        <div>
+          <img src={{imageData.imageUrl}} id="imageFrame" align="center"/>
+        </div>
         <br>
-        <textarea class="form-control " id="imageAnalysis" >{{imageData.analysis}}</textarea>
+        <br>
+        <div>
+          <textarea class="form-control " id="imageAnalysis" >{{imageData.analysis}}</textarea>
+        </div>
       </div>
-      <button id="resetFormsButton" align="center" type="button" class="btn btn-default" onclick="resetForms()">Start over!</button>
+      <br>
+      <button id="resetFormsButton" align="center" type="button" class="btn btn-default" onclick="resetForms()">Start Over!</button>
     </div>
     <!-- End Analysis Form -->
 
