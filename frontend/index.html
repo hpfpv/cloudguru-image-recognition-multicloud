@@ -24,7 +24,7 @@
     </p>
     
     <!-- Add File Form -->
-    <div class="container">
+    <div class="container" align="center">
       <div class="col-md-auto" id="addFilesForm">
         <div class="input-group input-group upload-form">
             <div class="input-group-prepend">
@@ -40,7 +40,7 @@
     <!-- End Add File Form -->
     
     <!-- Timer Form -->
-    <div class="container d-none" id="timerForm">
+    <div class="container d-none" align="center" id="timerForm">
       <div class="col-md-auto">
         <p>Image is being proccessed. Please wait. </p>
         <div id="timerApp"></div>
@@ -53,12 +53,13 @@
     <br>
 
     <!-- Analysis Form -->
-    <div class="container d-none" id="analysisForm">
+    <div class="container d-none" align="center" id="analysisForm">
       <div class="col-md-auto" ng-controller="analysisController">
         <img src={{imageData.imageUrl}} id="imageFrame" align="center"/>
         <br>
         <textarea class="form-control " id="imageAnalysis" >{{imageData.analysis}}</textarea>
       </div>
+      <button id="resetFormsButton" align="center" type="button" class="btn btn-default" onclick="resetForms()">Start over!</button>
     </div>
     <!-- End Analysis Form -->
 
