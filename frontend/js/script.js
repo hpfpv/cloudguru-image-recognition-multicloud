@@ -153,10 +153,17 @@ function showGetAnalysisButton(){
 }
 
 function resetForms(){
-    $("#addFilesForm").removeClass("d-none");
     $("#getAnalysisButton").addClass("d-none");
     $("#analysisForm").addClass("d-none");
     $("#timerForm").addClass("d-none");
+    $("#fileinput").replaceWith($("#fileinput").val('').clone(true));
+    $("#addFilesForm").removeClass("d-none");
+    localStorage.clear();
+    document.location.reload();
+}
+function applyAnalysisScope(imageData) {
+    analysisScope.imageData = imageData;
+    analysisScope.$apply();
 }
 
 function addFileName () {
@@ -231,8 +238,5 @@ function uploadImage(){
     }    
 }
 
-function applyAnalysisScope(imageData) {
-    analysisScope.imageData = imageData;
-    analysisScope.$apply();
-}
+
 
