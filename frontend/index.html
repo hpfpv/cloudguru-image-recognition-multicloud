@@ -40,8 +40,8 @@
     <!-- End Add File Form -->
     
     <!-- Timer Form -->
-    <div class="container d-none" id="analysisForm">
-      <div class="col-md-auto d-none" id="timerForm">
+    <div class="container d-none" id="timerForm">
+      <div class="col-md-auto">
         <p>Image is being proccessed. Please wait. </p>
         <div id="timerApp"></div>
         <br>
@@ -55,7 +55,7 @@
     <!-- Analysis Form -->
     <div class="container d-none" id="analysisForm">
       <div class="col-md-auto" ng-controller="analysisController">
-        <img src="{{imageData.imageUrl}}" id="imageFrame" align="center"/>
+        <img src={{imageData.imageUrl}} id="imageFrame" align="center"/>
         <br>
         <textarea class="form-control " id="imageAnalysis" >{{imageData.analysis}}</textarea>
       </div>
