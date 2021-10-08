@@ -23,7 +23,7 @@ def getAnalysis(imageKey):
 
     data = document.get().to_dict()
 
-    response = data['analysis']
+    response = data
     logger.info(response)
 
     return response
