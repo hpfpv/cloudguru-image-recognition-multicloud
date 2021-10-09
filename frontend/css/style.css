@@ -5,9 +5,6 @@
     position: relative;
     width: 50%;
 }
-#addFilesForm {
-    max-width: 400px;
-}
 #attachments-img {
     width: 10%;
 }
@@ -25,11 +22,10 @@
         max-width: 400px;
     }
     #imageFrame {
-        position: relative;
-        max-width: 300px;
+        max-width: 500px;
     }
     #addFilesForm {
-        max-width: 300px;
+        max-width: 400px;
     }
  }
 
