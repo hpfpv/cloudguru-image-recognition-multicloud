@@ -1,0 +1,15 @@
+1- Create a workload identity pool 
+gcloud iam workload-identity-pools create REPLACE_ME_POOL_ID \
+    --location="global" \
+    --description="REPLACE_ME_POOL_DESCRIPTION" \
+    --display-name="REPLACE_ME_POOL_NAME"
+
+2- Create an identity provider
+gcloud iam workload-identity-pools providers create-aws awsdata \
+    --workload-identity-pool="REPLACE_ME_POOL_ID" \
+    --account-id="REPLACE_ME_AWS_ACCOUNT_ID" \
+    --location="global"
+3- Allow external identities impersonate GCP Service account
+gcloud iam service-accounts add-iam-policy-binding awsrole@datapath.iam.gserviceaccount.com \
+    --role=roles/iam.workloadIdentityUser \
+    --member="principalSet://iam.googleapis.com/projects/REPLACE_ME_GCP_PROJECT_ID/locations/global/workloadIdentityPools/awspool/attribute.aws_role/REPLACE_ME_ROLE_ARN"
